@@ -1,0 +1,24 @@
+*-cache.lib
+*.bak
+*.kicad_pcb-bak
+
+# Netlists
+*.net
+
+# Gerber formats
+*.gbl
+*.gbs
+*.gbp
+*.gbo
+*.gm1
+*.gtl
+*.gts
+*.gtp
+*.gto
+*.drl
+
+# Position files
+*.pos
+
+# zip files
+*.zip
