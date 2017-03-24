@@ -480,10 +480,10 @@ U 1 1 58847495
 P 2750 5350
 F 0 "U2" H 2800 6100 60  0000 C CNN
 F 1 "LTC4316" H 3350 6100 60  0000 C CNN
-F 2 "double_jump_electric_component_library:MSOP-10" H 2700 6000 60  0001 C CNN
+F 2 "Housings_SSOP:MSOP-10_3x3mm_Pitch0.5mm" H 2700 6000 60  0001 C CNN
 F 3 "http://cds.linear.com/docs/en/datasheet/4316fa.pdf" H 2800 6100 60  0001 C CNN
 F 4 "Linear Technology" H 2900 6200 60  0001 C CNN "Manufacturer"
-F 5 "LTC4316" H 3000 6300 60  0001 C CNN "Manufacturer Number"
+F 5 "LTC4316IMS#PBF" H 3000 6300 60  0001 C CNN "Manufacturer Number"
 	1    2750 5350
 	1    0    0    -1  
 $EndComp
@@ -1125,4 +1125,6 @@ Wire Wire Line
 	6050 4200 6050 4250
 Wire Wire Line
 	6050 4550 6050 4600
+Text Notes 6400 3700 0    60   ~ 0
+COM3 --> Logic 0:\nNominal I2C Address set to 0x28
 $EndSCHEMATC

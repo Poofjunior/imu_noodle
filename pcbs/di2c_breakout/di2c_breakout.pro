@@ -1,4 +1,4 @@
-update=Sun 29 Jan 2017 01:01:32 PM PST
+update=Thu 02 Feb 2017 04:48:05 PM PST
 version=1
 last_client=kicad
 [pcbnew]
@@ -60,3 +60,13 @@ LibName28=contrib
 LibName29=valves
 LibName30=/home/jvasquez/Projects/double_jump_electric_component_library/double_jump_electric_component_library
 LibName31=/home/jvasquez/Projects/synthego_component_library/synthego_component_library
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
