@@ -51,13 +51,13 @@ void loop(void)
         Serial.print(index);
         Serial.print(": ");
         Serial.print("w: ");
-        Serial.print(w);
+        Serial.print(w/QUAT_BITS_TO_FLOAT);
         Serial.print(" x: ");
-        Serial.print(x);
+        Serial.print(x/QUAT_BITS_TO_FLOAT);
         Serial.print(" y: ");
-        Serial.print(y);
+        Serial.print(y/QUAT_BITS_TO_FLOAT);
         Serial.print(" z: ");
-        Serial.println(z);
+        Serial.println(z/QUAT_BITS_TO_FLOAT);
     }
     Serial.println();
     delay(50);

@@ -154,10 +154,10 @@ uint8_t BNO055::readRawQuaternion(int16_t& w, int16_t& x, int16_t& y, int16_t& z
                               quaternionData);
     if (failure)
         return failure;
-    w = (((int16_t)quaternionData[0]) << 8) | quaternionData[1];
-    x = (((int16_t)quaternionData[2]) << 8) | quaternionData[3];
-    y = (((int16_t)quaternionData[4]) << 8) | quaternionData[5];
-    z = (((int16_t)quaternionData[6]) << 8) | quaternionData[7];
+    w = (((int16_t)quaternionData[1]) << 8) | quaternionData[0];
+    x = (((int16_t)quaternionData[3]) << 8) | quaternionData[2];
+    y = (((int16_t)quaternionData[5]) << 8) | quaternionData[4];
+    z = (((int16_t)quaternionData[7]) << 8) | quaternionData[6];
     return 0;
 }
 
