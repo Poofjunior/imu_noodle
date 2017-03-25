@@ -1,5 +1,5 @@
 /*
- * \project single_board_bringup.ino
+ * \project multi_board_bringup.ino
  * \author Joshua Vasquez
  */
 
@@ -14,9 +14,9 @@ uint8_t addresses[NUM_BNOS] = {BNO055::ALTERNATE_ADDRESS, 0x2E, 0x2F};
 void setup(){
     Serial.begin(9600);// baud rate irrelevant for usb serial.
     delay(3000);
-    Serial.print("Git hash: ");
+    Serial.print("Git Hash: ");
     Serial.println(GIT_HASH);
-    Serial.print("Git branch: ");
+    Serial.print("Git Branch: ");
     Serial.println(GIT_BRANCH);
     Serial.print("Upload Date: ");
     Serial.println(UPLOAD_DATE);
@@ -43,12 +43,21 @@ void setup(){
 void loop(void)
 {
     float heading;
+    int16_t w, x, y, z;
+    float QUAT_BITS_TO_FLOAT = 16384.0;
     for (uint8_t index = 0; index < NUM_BNOS; ++index)
     {
-        heading = bno_array[index].readEulHead()/900.0;
+        heading = bno_array[index].readRawQuaternion(w, x, y, z);
         Serial.print(index);
         Serial.print(": ");
-        Serial.println(heading);
+        Serial.print("w: ");
+        Serial.print(w);
+        Serial.print(" x: ");
+        Serial.print(x);
+        Serial.print(" y: ");
+        Serial.print(y);
+        Serial.print(" z: ");
+        Serial.println(z);
     }
     Serial.println();
     delay(50);

@@ -163,7 +163,7 @@ class BNO055
  * \brief Get the unscaled quaternion data. Return i2c status byte,
           where nonzero indicates failure.
  */
-    uint8_t readQuaternion(int16_t& w, int16_t& x, int16_t& y, int16_t& z);
+    uint8_t readRawQuaternion(int16_t& w, int16_t& x, int16_t& y, int16_t& z);
 
 /**
  * \brief get the mode from one of the various available modes.

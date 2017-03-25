@@ -146,7 +146,7 @@ uint16_t BNO055::readGravityVector(axis_t axis)
     return read16(baseAddress + (2 * axis));
 }
 
-uint8_t BNO055::readQuaternion(int16_t& w, int16_t& x, int16_t& y, int16_t& z)
+uint8_t BNO055::readRawQuaternion(int16_t& w, int16_t& x, int16_t& y, int16_t& z)
 {
     uint8_t quaternionNumBytes = 8;
     uint8_t quaternionData[quaternionNumBytes];
