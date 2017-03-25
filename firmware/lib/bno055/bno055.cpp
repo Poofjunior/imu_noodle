@@ -146,6 +146,21 @@ uint16_t BNO055::readGravityVector(axis_t axis)
     return read16(baseAddress + (2 * axis));
 }
 
+uint8_t BNO055::readQuaternion(int16_t& w, int16_t& x, int16_t& y, int16_t& z)
+{
+    uint8_t quaternionNumBytes = 8;
+    uint8_t quaternionData[quaternionNumBytes];
+    uint8_t failure = i2cRead(deviceAddress_, QUA_DATA_W_LSB, quaternionNumBytes,
+                              quaternionData);
+    if (failure)
+        return failure;
+    w = (((int16_t)quaternionData[0]) << 8) | quaternionData[1];
+    x = (((int16_t)quaternionData[2]) << 8) | quaternionData[3];
+    y = (((int16_t)quaternionData[4]) << 8) | quaternionData[5];
+    z = (((int16_t)quaternionData[6]) << 8) | quaternionData[7];
+    return 0;
+}
+
 BNO055::mode_t BNO055::getMode()
 {
     return currentMode_;
@@ -285,8 +300,8 @@ uint8_t BNO055::setTemperatureUnits(temperature_units_t units)
 }
 
 uint8_t BNO055::axisRemap(int8_t new_sign_x, axis_t new_x,
-                              int8_t new_sign_y, axis_t new_y,
-                              int8_t new_sign_z, axis_t new_z)
+                          int8_t new_sign_y, axis_t new_y,
+                          int8_t new_sign_z, axis_t new_z)
 {
 /// Status byte will be 0 iff all transactions succeed.
     uint8_t status_byte = 0;
