@@ -10,11 +10,10 @@ void ofApp::setup(){
     ofSetFrameRate(30);
     ofBackground(0);
 
-    for (size_t qIndex = 0; qIndex < SUBDIVISIONS; ++qIndex)
+    for (size_t qIndex = 0; qIndex < NUM_NODES; ++qIndex)
     {
         orientations_[qIndex].encodeRotation(0, 1, 0, 0);
     }
-
 }
 
 //--------------------------------------------------------------
@@ -34,13 +33,13 @@ void ofApp::draw(){
     // Hardcode some vertices to start with:
     orientations_[0].encodeRotation(0 * (M_PI/180.0), 0, 0, 1);
     orientations_[1].encodeRotation(90 * (M_PI/180.0), 0, 0, 1);
-    //orientations_[2].encodeRotation(0 * (M_PI/180.0), 0, 0, 1);
+    orientations_[2].encodeRotation(180 * (M_PI/180.0), 0, 0, 1);
 
     Quaternion<float> slerpQuat;
     ofVec3f lastNoodleVertex{1, 0, 0};
     ofVec3f noodleVertex{1, 0, 0};
 
-    for (int nodeIndex = 0; nodeIndex < NUM_NODES - 1; ++nodeIndex)
+    for (size_t nodeIndex = 0; nodeIndex < NUM_NODES - 1; ++nodeIndex)
     {
         for (size_t segmentIndex = 0.0; segmentIndex < SUBDIVISIONS; ++segmentIndex)
         {
@@ -69,17 +68,6 @@ void ofApp::draw(){
             lastNoodleVertex = noodleVertex;
         }
     }
-
-/*
-    int x, y;
-    for (int i = 0; i < 5; ++i)
-    {
-        x = i * 50;
-        y = i * 25;
-        line.addVertex(ofVec2f(x,y));
-    }
-*/
-
 
     line.draw();
     ofPopMatrix();
