@@ -25,7 +25,7 @@ void ofApp::update(){
 void ofApp::draw(){
 
     static int i = 0;
-
+    ofSetLineWidth(10);
 
     ofPolyline line;
     //translate so that 0,0 is the center of the screen
@@ -33,18 +33,23 @@ void ofApp::draw(){
     ofTranslate(ofGetWidth()/2, ofGetHeight()/2, 0);
 
     // Hardcode some vertices to start with:
-    orientations_[0].encodeRotation(0 * (M_PI/180.0), 0, 0, 1);
+    orientations_[0].encodeRotation(90 * (M_PI/180.0), 0, 0, 1);
     orientations_[1].encodeRotation(i * (M_PI/180.0), 0, 0, 1);
     orientations_[2].encodeRotation((180 - i) * (M_PI/180.0), 0, 0, 1);
+    orientations_[3].encodeRotation(.5 * i * (M_PI/180.0), 0, 0, 1);
+    orientations_[4].encodeRotation((180 - .5 * i) * (M_PI/180.0), 0, 0, 1);
 
 
     ++i;
     i %=180;
 
     Quaternion<float> slerpQuat;
-    ofVec3f lastNoodleVertex{1, 0, 0};
+    float percentRotation;
+    ofVec3f lastNoodleVertex{0, 0, 0};
     ofVec3f noodleVertex{1, 0, 0};
 
+    // Start the line at the origin.
+    line.addVertex(lastNoodleVertex);
     for (size_t nodeIndex = 0; nodeIndex < NUM_NODES - 1; ++nodeIndex)
     {
         for (size_t segmentIndex = 0; segmentIndex < SUBDIVISIONS; ++segmentIndex)
@@ -55,8 +60,9 @@ void ofApp::draw(){
             noodleVertex.z = 0.0;
 
             /// Compute the next quaternion in the slerp iteration.
+            percentRotation = float(segmentIndex+1)/SUBDIVISIONS;
             slerpQuat = Quaternion<float>::slerp(orientations_[nodeIndex], orientations_[nodeIndex + 1],
-                                                 float(segmentIndex)/SUBDIVISIONS);
+                                                 percentRotation);
 
             /// Rotate the current vector by the slerp quaternion amount.
             slerpQuat.rotate(noodleVertex.x,
@@ -67,10 +73,7 @@ void ofApp::draw(){
 
             /// Translate to the tip of the previous segment with good ol' vector addition
             /// (Exclude the first segment).
-            if ((segmentIndex != 0) || (nodeIndex != 0))
-            {
-                noodleVertex += lastNoodleVertex;
-            }
+             noodleVertex += lastNoodleVertex;
 
             //std::cout << noodleVertex.x << " " << noodleVertex.y << " " << std::endl;
 

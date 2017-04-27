@@ -28,7 +28,7 @@ class ofApp : public ofBaseApp{
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
-    static const size_t NUM_NODES = 3;  // total number of nodes
+    static const size_t NUM_NODES = 5;  // total number of nodes
     static const size_t SUBDIVISIONS = 8; // line segments between two adjacent nodes.
     static const size_t NOODLE_LENGTH_PX = 700; // total length of the noodle line (in pixels)
     static const size_t SEGMENT_LENGTH_PX = NOODLE_LENGTH_PX/(SUBDIVISIONS * NUM_NODES);
