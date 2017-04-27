@@ -24,6 +24,8 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 
+    static int i = 0;
+
 
     ofPolyline line;
     //translate so that 0,0 is the center of the screen
@@ -32,8 +34,12 @@ void ofApp::draw(){
 
     // Hardcode some vertices to start with:
     orientations_[0].encodeRotation(0 * (M_PI/180.0), 0, 0, 1);
-    orientations_[1].encodeRotation(90 * (M_PI/180.0), 0, 0, 1);
-    orientations_[2].encodeRotation(45 * (M_PI/180.0), 0, 0, 1);
+    orientations_[1].encodeRotation(i * (M_PI/180.0), 0, 0, 1);
+    orientations_[2].encodeRotation((180 - i) * (M_PI/180.0), 0, 0, 1);
+
+
+    ++i;
+    i %=180;
 
     Quaternion<float> slerpQuat;
     ofVec3f lastNoodleVertex{1, 0, 0};
