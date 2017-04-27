@@ -33,7 +33,7 @@ void ofApp::draw(){
     // Hardcode some vertices to start with:
     orientations_[0].encodeRotation(0 * (M_PI/180.0), 0, 0, 1);
     orientations_[1].encodeRotation(90 * (M_PI/180.0), 0, 0, 1);
-    orientations_[2].encodeRotation(180 * (M_PI/180.0), 0, 0, 1);
+    orientations_[2].encodeRotation(45 * (M_PI/180.0), 0, 0, 1);
 
     Quaternion<float> slerpQuat;
     ofVec3f lastNoodleVertex{1, 0, 0};
@@ -41,7 +41,7 @@ void ofApp::draw(){
 
     for (size_t nodeIndex = 0; nodeIndex < NUM_NODES - 1; ++nodeIndex)
     {
-        for (size_t segmentIndex = 0.0; segmentIndex < SUBDIVISIONS; ++segmentIndex)
+        for (size_t segmentIndex = 0; segmentIndex < SUBDIVISIONS; ++segmentIndex)
         {
             /// Reset the current vector segment to the default orientation.
             noodleVertex.x = 1.0;
@@ -59,15 +59,21 @@ void ofApp::draw(){
             /// Scale the current vector to the proper segment length
             noodleVertex *= SEGMENT_LENGTH_PX;
 
-            /// Translate to the tip of the previous segment with good ol' vector addition.
-            if ((segmentIndex != 0) && (nodeIndex != 0))
+            /// Translate to the tip of the previous segment with good ol' vector addition
+            /// (Exclude the first segment).
+            if ((segmentIndex != 0) || (nodeIndex != 0))
+            {
                 noodleVertex += lastNoodleVertex;
+            }
+
+            //std::cout << noodleVertex.x << " " << noodleVertex.y << " " << std::endl;
 
             /// Add it to the current line.
             line.addVertex(noodleVertex);
             lastNoodleVertex = noodleVertex;
         }
     }
+    //std::cout << std::endl;
 
     line.draw();
     ofPopMatrix();
