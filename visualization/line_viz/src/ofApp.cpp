@@ -13,7 +13,6 @@ void ofApp::setup(){
     for (size_t qIndex = 0; qIndex < SUBDIVISIONS; ++qIndex)
     {
         orientations_[qIndex].encodeRotation(0, 1, 0, 0);
-        noodleVertices[qIndex] = ofVec3f(1, 0, 0);
     }
 
 }
@@ -38,12 +37,13 @@ void ofApp::draw(){
     //orientations_[2].encodeRotation(0 * (M_PI/180.0), 0, 0, 1);
 
     Quaternion<float> slerpQuat;
+    ofVec3f lastNoodleVertex{1, 0, 0};
+    ofVec3f noodleVertex{1, 0, 0};
 
     for (int nodeIndex = 0; nodeIndex < NUM_NODES - 1; ++nodeIndex)
     {
-        for (size_t segment = 0.0; segment < SUBDIVISIONS; ++segment)
+        for (size_t segmentIndex = 0.0; segmentIndex < SUBDIVISIONS; ++segmentIndex)
         {
-             ofVec3f& noodleVertex = noodleVertices[segment * nodeIndex];
             /// Reset the current vector segment to the default orientation.
             noodleVertex.x = 1.0;
             noodleVertex.y = 0.0;
@@ -51,7 +51,7 @@ void ofApp::draw(){
 
             /// Compute the next quaternion in the slerp iteration.
             slerpQuat = Quaternion<float>::slerp(orientations_[nodeIndex], orientations_[nodeIndex + 1],
-                                                 float(segment)/SUBDIVISIONS);
+                                                 float(segmentIndex)/SUBDIVISIONS);
 
             /// Rotate the current vector by the slerp quaternion amount.
             slerpQuat.rotate(noodleVertex.x,
@@ -61,11 +61,12 @@ void ofApp::draw(){
             noodleVertex *= SEGMENT_LENGTH_PX;
 
             /// Translate to the tip of the previous segment with good ol' vector addition.
-            if (segment != 0)
-                noodleVertices[segment] += noodleVertices[segment-1];
+            if ((segmentIndex != 0) && (nodeIndex != 0))
+                noodleVertex += lastNoodleVertex;
 
             /// Add it to the current line.
-            line.addVertex(noodleVertices[nodeIndex]);
+            line.addVertex(noodleVertex);
+            lastNoodleVertex = noodleVertex;
         }
     }
 

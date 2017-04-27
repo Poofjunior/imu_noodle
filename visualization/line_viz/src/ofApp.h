@@ -29,13 +29,10 @@ class ofApp : public ofBaseApp{
     void gotMessage(ofMessage msg);
 
     static const size_t NUM_NODES = 2;  // total number of nodes
-    static const size_t SUBDIVISIONS = 3; // line segments between two adjacent nodes.
+    static const size_t SUBDIVISIONS = 5; // line segments between two adjacent nodes.
     static const size_t NOODLE_LENGTH_PX = 1000; // total length of the noodle line (in pixels)
     static const size_t SEGMENT_LENGTH_PX = NOODLE_LENGTH_PX/SUBDIVISIONS;
 
     /// The angles of each imu node.
     Quaternion<float> orientations_[NUM_NODES];
-
-    /// The pts in 3D space that will be drawn.
-    ofVec3f noodleVertices[NUM_NODES * SUBDIVISIONS];
 };
