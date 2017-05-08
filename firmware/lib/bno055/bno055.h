@@ -212,6 +212,7 @@ class BNO055
 
     static const uint8_t RAW_DATA_NUM_BYTES = 46;
     static const uint8_t CALIB_DATA_NUM_BYTES = 22;
+    static const uint32_t QUAT_BITS_TO_FLOAT = 16384;
 
 private:
 

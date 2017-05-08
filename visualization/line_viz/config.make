@@ -104,7 +104,7 @@
 #
 #   Note: Leave a leading space when adding list items with the += operator
 ################################################################################
-# PROJECT_CFLAGS = 
+PROJECT_CFLAGS = `pkg-config --libs --cflags libusb-1.0`
 
 ################################################################################
 # PROJECT OPTIMIZATION CFLAGS
