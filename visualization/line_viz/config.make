@@ -77,7 +77,8 @@
 # incorporated directly into the final executable application binary.
 ################################################################################
 # PROJECT_LDFLAGS=-Wl,-rpath=./libs
-
+# -lusb-1.0 derived from running pkg-config --libs libusb-1.0
+PROJECT_LDFLAGS=-lusb-1.0
 ################################################################################
 # PROJECT DEFINES
 #   Create a space-delimited list of DEFINES. The list will be converted into 
@@ -104,7 +105,7 @@
 #
 #   Note: Leave a leading space when adding list items with the += operator
 ################################################################################
-PROJECT_CFLAGS = `pkg-config --libs --cflags libusb-1.0`
+#PROJECT_CFLAGS = 
 
 ################################################################################
 # PROJECT OPTIMIZATION CFLAGS

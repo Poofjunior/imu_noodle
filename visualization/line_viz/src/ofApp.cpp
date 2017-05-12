@@ -10,10 +10,10 @@ void ofApp::setup(){
     ofSetFrameRate(30);
     ofBackground(0);
 
-    for (size_t qIndex = 0; qIndex < NUM_NODES; ++qIndex)
-    {
-        orientations_[qIndex].encodeRotation(0, 1, 0, 0);
-    }
+    //for (size_t qIndex = 0; qIndex < NodeUsbDriver::NUM_NODES; ++qIndex)
+    //{
+    //    orientations_[qIndex].encodeRotation(0, 1, 0, 0);
+    //}
 }
 
 //--------------------------------------------------------------
@@ -24,6 +24,8 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 
+    nodeUsbDriver_.updateNodes();
+
     static int i = 0;
     ofSetLineWidth(10);
 
@@ -33,11 +35,9 @@ void ofApp::draw(){
     ofTranslate(ofGetWidth()/2, ofGetHeight()/2, 0);
 
     // Hardcode some vertices to start with:
-    orientations_[0].encodeRotation(90 * (M_PI/180.0), 0, 0, 1);
-    orientations_[1].encodeRotation(i * (M_PI/180.0), 0, 0, 1);
-    orientations_[2].encodeRotation((180 - i) * (M_PI/180.0), 0, 0, 1);
-    orientations_[3].encodeRotation(.5 * i * (M_PI/180.0), 0, 0, 1);
-    orientations_[4].encodeRotation((180 - .5 * i) * (M_PI/180.0), 0, 0, 1);
+    //orientations_[0].encodeRotation(90 * (M_PI/180.0), 0, 0, 1);
+    //orientations_[1].encodeRotation(i * (M_PI/180.0), 0, 0, 1);
+    //orientations_[2].encodeRotation((180 - i) * (M_PI/180.0), 0, 0, 1);
 
 
     ++i;
@@ -50,7 +50,7 @@ void ofApp::draw(){
 
     // Start the line at the origin.
     line.addVertex(lastNoodleVertex);
-    for (size_t nodeIndex = 0; nodeIndex < NUM_NODES - 1; ++nodeIndex)
+    for (size_t nodeIndex = 0; nodeIndex < NodeUsbDriver::NUM_NODES - 1; ++nodeIndex)
     {
         for (size_t segmentIndex = 0; segmentIndex < SUBDIVISIONS; ++segmentIndex)
         {
@@ -61,7 +61,8 @@ void ofApp::draw(){
 
             /// Compute the next quaternion in the slerp iteration.
             percentRotation = float(segmentIndex+1)/SUBDIVISIONS;
-            slerpQuat = Quaternion<float>::slerp(orientations_[nodeIndex], orientations_[nodeIndex + 1],
+            slerpQuat = Quaternion<float>::slerp(nodeUsbDriver_.orientations_[nodeIndex],
+                                                 nodeUsbDriver_.orientations_[nodeIndex + 1],
                                                  percentRotation);
 
             /// Rotate the current vector by the slerp quaternion amount.
