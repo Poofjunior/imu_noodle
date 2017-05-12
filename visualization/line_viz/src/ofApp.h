@@ -38,4 +38,8 @@ class ofApp : public ofBaseApp{
     // in the NodeUsbDriver now.
 
     NodeUsbDriver nodeUsbDriver_;
+
+    ofEasyCam cam_;
+    //ofVboMesh mesh_;
+    //ofxPtf ptf_;
 };

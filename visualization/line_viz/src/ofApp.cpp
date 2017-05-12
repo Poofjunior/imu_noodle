@@ -10,10 +10,6 @@ void ofApp::setup(){
     ofSetFrameRate(30);
     ofBackground(0);
 
-    //for (size_t qIndex = 0; qIndex < NodeUsbDriver::NUM_NODES; ++qIndex)
-    //{
-    //    orientations_[qIndex].encodeRotation(0, 1, 0, 0);
-    //}
 }
 
 //--------------------------------------------------------------
@@ -24,24 +20,16 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 
+    ofPolyline line;
+    //ofVboMesh mesh;
+    //mesh.setMode(OF_PRIMITIVE_LINE_LOOP);
+    cam_.begin();
+
     nodeUsbDriver_.updateNodes();
 
-    static int i = 0;
     ofSetLineWidth(10);
 
-    ofPolyline line;
-    //translate so that 0,0 is the center of the screen
     ofPushMatrix();
-    ofTranslate(ofGetWidth()/2, ofGetHeight()/2, 0);
-
-    // Hardcode some vertices to start with:
-    //orientations_[0].encodeRotation(90 * (M_PI/180.0), 0, 0, 1);
-    //orientations_[1].encodeRotation(i * (M_PI/180.0), 0, 0, 1);
-    //orientations_[2].encodeRotation((180 - i) * (M_PI/180.0), 0, 0, 1);
-
-
-    ++i;
-    i %=180;
 
     Quaternion<float> slerpQuat;
     float percentRotation;
@@ -50,6 +38,7 @@ void ofApp::draw(){
 
     // Start the line at the origin.
     line.addVertex(lastNoodleVertex);
+    //mesh.addVertex(lastNoodleVertex);
     for (size_t nodeIndex = 0; nodeIndex < NodeUsbDriver::NUM_NODES - 1; ++nodeIndex)
     {
         for (size_t segmentIndex = 0; segmentIndex < SUBDIVISIONS; ++segmentIndex)
@@ -76,17 +65,17 @@ void ofApp::draw(){
             /// (Exclude the first segment).
              noodleVertex += lastNoodleVertex;
 
-            //std::cout << noodleVertex.x << " " << noodleVertex.y << " " << std::endl;
-
             /// Add it to the current line.
             line.addVertex(noodleVertex);
+            //mesh.addVertex(noodleVertex);
             lastNoodleVertex = noodleVertex;
         }
     }
-    //std::cout << std::endl;
 
+    //mesh.draw();
     line.draw();
     ofPopMatrix();
+    cam_.end();
 }
 
 //--------------------------------------------------------------
