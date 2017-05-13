@@ -10,6 +10,17 @@ void ofApp::setup(){
     ofSetFrameRate(30);
     ofBackground(0);
 
+    mesh_.setMode(OF_PRIMITIVE_LINE_LOOP);
+
+    size_t numVerts = 12;
+    float w = 30;
+    float h = 30;
+    for (unsigned i = 0; i < numVerts; ++i)
+    {
+        mesh_.addVertex(ofVec3f(0.f,
+                               w * cos(TWO_PI * i / (float)numVerts),
+                               h * sin(TWO_PI * i / (float)numVerts)));
+    }
 }
 
 //--------------------------------------------------------------
@@ -20,9 +31,8 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 
-    ofPolyline line;
-    //ofVboMesh mesh;
-    //mesh.setMode(OF_PRIMITIVE_LINE_LOOP);
+    //ofPolyline line;
+    ofxPtf ptf;
     cam_.begin();
 
     nodeUsbDriver_.updateNodes();
@@ -37,8 +47,8 @@ void ofApp::draw(){
     ofVec3f noodleVertex{1, 0, 0};
 
     // Start the line at the origin.
-    line.addVertex(lastNoodleVertex);
-    //mesh.addVertex(lastNoodleVertex);
+    //line.addVertex(lastNoodleVertex);
+    ptf.addPoint(lastNoodleVertex);
     for (size_t nodeIndex = 0; nodeIndex < NodeUsbDriver::NUM_NODES - 1; ++nodeIndex)
     {
         for (size_t segmentIndex = 0; segmentIndex < SUBDIVISIONS; ++segmentIndex)
@@ -66,14 +76,29 @@ void ofApp::draw(){
              noodleVertex += lastNoodleVertex;
 
             /// Add it to the current line.
-            line.addVertex(noodleVertex);
-            //mesh.addVertex(noodleVertex);
+            //line.addVertex(noodleVertex);
+            ptf.addPoint(noodleVertex);
             lastNoodleVertex = noodleVertex;
         }
     }
 
-    //mesh.draw();
-    line.draw();
+    //line.draw();
+
+    for (int i = 0; i < ptf.framesSize(); ++i)
+    {
+        ofPushMatrix();
+
+        // multiply current matrix (rotated around x axis)
+        // by transform for next frame
+        ofMultMatrix(ptf.frameAt(i));
+
+        // draw ellipse
+        mesh_.draw();
+
+        ofPopMatrix();
+    }
+
+
     ofPopMatrix();
     cam_.end();
 }
