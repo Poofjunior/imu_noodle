@@ -41,6 +41,7 @@ void ofApp::draw(){
     ofSetLineWidth(10);
 
     ofPushMatrix();
+    //ofDrawGrid(
 
     Quaternion<float> slerpQuat;
     float percentRotation;

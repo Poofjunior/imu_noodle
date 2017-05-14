@@ -1126,5 +1126,17 @@ Wire Wire Line
 Wire Wire Line
 	6050 4550 6050 4600
 Text Notes 6400 3700 0    60   ~ 0
-COM3 --> Logic 0:\nNominal I2C Address set to 0x28
+COM3 --> Logic 0:\nNominal I2C Address set to 0x29
+Text Notes 7550 850  0    60   ~ 12
+    R1    |    R8    |    R14    |  Translation Byte  | New Address
+Text Notes 7700 1400 0    60   ~ 0
+97K6\n53K6\n59K0\n66K5\n71K5
+Text Notes 8200 1400 0    60   ~ 0
+0\n47K5\n40K2\n34K8\n28K0
+Text Notes 8750 1400 0    60   ~ 0
+0\n0\n0\n0\n0
+Text Notes 9300 1400 0    60   ~ 0
+0b 0000 0000\n0b 0000 0111\n0b 0000 0110\n0b 0000 0101\n0b 0000 0100
+Text Notes 10250 1600 0    60   ~ 0
+0x29\n0x2E\n0x2F\n0x2C\n0x2D\n\n\n
 $EndSCHEMATC
