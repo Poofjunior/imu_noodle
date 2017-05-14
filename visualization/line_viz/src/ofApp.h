@@ -31,7 +31,7 @@ class ofApp : public ofBaseApp{
     void gotMessage(ofMessage msg);
 
     static const size_t SUBDIVISIONS = 8; // line segments between two adjacent nodes.
-    static const size_t NOODLE_LENGTH_PX = 700; // total length of the noodle line (in pixels)
+    static const size_t NOODLE_LENGTH_PX = 600; // total length of the noodle line (in pixels)
     static const size_t SEGMENT_LENGTH_PX = NOODLE_LENGTH_PX/(SUBDIVISIONS * NodeUsbDriver::NUM_NODES);
 
     /// The angles of each imu node.

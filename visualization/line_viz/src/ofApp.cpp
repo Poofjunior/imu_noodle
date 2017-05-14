@@ -7,14 +7,14 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofNoFill();
-    ofSetFrameRate(30);
+    ofSetFrameRate(60);
     ofBackground(0);
 
     mesh_.setMode(OF_PRIMITIVE_LINE_LOOP);
 
-    size_t numVerts = 16;
-    float w = 10;
-    float h = 10;
+    size_t numVerts = 24;
+    float w = 6;
+    float h = 6;
     for (unsigned i = 0; i < numVerts; ++i)
     {
         mesh_.addVertex(ofVec3f(0.f,
@@ -34,6 +34,7 @@ void ofApp::draw(){
     //ofPolyline line;
     ofxPtf ptf;
     cam_.begin();
+    cam_.setVFlip(true);
 
     nodeUsbDriver_.updateNodes();
 
