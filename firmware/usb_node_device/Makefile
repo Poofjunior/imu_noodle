@@ -17,7 +17,8 @@ BOARD_TAG    = teensy31
 # Additional user-defined libraries may be added to this list
 ARDUINO_LIBS += bno055 \
                 i2c_wrapper \
-                i2c_t3
+                i2c_t3 \
+                usb_packet
 
 # Default user-defined libraries directory
 USER_LIB_PATH += ../lib
