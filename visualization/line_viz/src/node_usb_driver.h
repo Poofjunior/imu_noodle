@@ -18,7 +18,7 @@ class NodeUsbDriver
     libusb_device_handle* devHandle_;
     libusb_context* ctx_;
 
-    static const size_t NUM_NODES = 3;  // total number of nodes
+    static const size_t NUM_NODES = 4;  // total number of nodes
     static const size_t NUM_BYTES = 64; // teensy bulk transfer size.
 
     /// The angles of each imu node.

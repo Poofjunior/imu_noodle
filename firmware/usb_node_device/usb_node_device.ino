@@ -1,5 +1,5 @@
 /*
- * \project multi_board_bringup.ino
+ * \project usb_node_device.ino
  * \author Joshua Vasquez
  */
 
@@ -7,9 +7,9 @@
 #include <bno055.h>
 #include <i2c_wrapper.h>
 
-const uint8_t NUM_BNOS = 3;
+const uint8_t NUM_BNOS = 4;
 BNO055 bno_array[NUM_BNOS];
-uint8_t addresses[NUM_BNOS] = {0x2F, 0x2E, BNO055::ALTERNATE_ADDRESS};
+uint8_t addresses[NUM_BNOS] = {0x2F, 0x2C, 0x2E, /*0x2D*/ BNO055::ALTERNATE_ADDRESS};
 
 uint8_t outgoingPacket_[64];
 
