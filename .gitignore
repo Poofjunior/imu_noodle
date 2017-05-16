@@ -22,3 +22,10 @@
 
 # zip files
 *.zip
+
+bin/
+build-teensy31
+
+_autosave*
+
+obj/
