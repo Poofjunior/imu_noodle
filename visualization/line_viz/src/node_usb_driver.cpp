@@ -55,36 +55,38 @@ NodeUsbDriver::~NodeUsbDriver()
 
 void NodeUsbDriver::updateNodes()
 {
-    size_t NUM_BYTES = 64;
     int numBytesTransferred;
     int errorCode;
 
     // details for endpoints and VID/PID gathered from lsusb -v
     errorCode = libusb_bulk_transfer(devHandle_, (3 | LIBUSB_ENDPOINT_IN),
-                                     receivedBytes_, NUM_BYTES, &numBytesTransferred, .050);
+                                     usbPacket_.packet_,
+                                     USBPacket::PACKET_SIZE_BYTES,
+                                     &numBytesTransferred, .050);
     if (errorCode != 0)
     {
         std::cout <<  "Error receving data!" << std::endl;
         return;
     }
-    // Stuff raw quaternion data into classes.
-    for (size_t qIndex = 0; qIndex < NUM_NODES; ++qIndex)
+
+    USBPacket::quatPacket qPacket;
+    /// Pull out all received sensor node data from the received packet.
+    for (size_t usbPacketIndex = 0; usbPacketIndex < USBPacket::QUATERNIONS_PER_PACKET;
+         ++usbPacketIndex)
     {
-        // Dump byte contents into a float.
-        // Note: assumes packets were organized on the usb side for a little-endian target.
-        std::memcpy((void*) &orientations_[qIndex].w_,
-                    (void*) &receivedBytes_[qIndex * sizeof(quaternionData) + 0], 4);
-        std::memcpy((void*) &orientations_[qIndex].x_,
-                    (void*) &receivedBytes_[qIndex * sizeof(quaternionData) + 4], 4);
-        std::memcpy((void*) &orientations_[qIndex].y_,
-                    (void*) &receivedBytes_[qIndex * sizeof(quaternionData) + 8], 4);
-        std::memcpy((void*) &orientations_[qIndex].z_,
-                    (void*) &receivedBytes_[qIndex * sizeof(quaternionData) + 12], 4);
-        std::cout << std::hex << orientations_[qIndex].w_ << std::endl;
-        std::cout << orientations_[qIndex].x_ << std::endl;
-        std::cout << orientations_[qIndex].y_ << std::endl;
-        std::cout << orientations_[qIndex].z_ << std::endl;
-        std::cout << std::dec << std::endl;
+        // Note: assumes endianness of usb device and host pc match.
+        usbPacket_.getQuaternionPacket(usbPacketIndex, qPacket);
+
+        orientations_[qPacket.index].w_ = qPacket.qData.w;
+        orientations_[qPacket.index].x_ = qPacket.qData.x;
+        orientations_[qPacket.index].y_ = qPacket.qData.y;
+        orientations_[qPacket.index].z_ = qPacket.qData.z;
+        std::cout << int(qPacket.index) << std::endl;
+        std::cout << qPacket.qData.w << std::endl;
+        std::cout << qPacket.qData.x << std::endl;
+        std::cout << qPacket.qData.y << std::endl;
+        std::cout << qPacket.qData.z << std::endl;
     }
+    std::cout << std::endl;
 }
 

@@ -1,6 +1,7 @@
 #ifndef NODE_USB_H
 #define NODE_USB_H
 #include "qpose/src/quaternion.hpp"
+#include <usb_packet.h>
 #include <libusb-1.0/libusb.h>
 #include <iostream>
 #include <cstring>
@@ -24,18 +25,11 @@ class NodeUsbDriver
     /// The angles of each imu node.
     Quaternion<float> orientations_[NUM_NODES];
 
-    struct quaternionData
-    {
-        float w;
-        float x;
-        float y;
-        float z;
-    };
-
 private:
     static const uint16_t TEENSY_VID = 0x16C0;
     static const uint16_t TEENSY_PID = 0x0486;
-    uint8_t receivedBytes_[NUM_BYTES];
+
+    USBPacket usbPacket_;
 };
 #endif //NODE_USB_H
 

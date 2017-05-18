@@ -10,7 +10,7 @@
  *        the quaternion data of several BNO055 sensors.
  *        Which sensor's data is indicated by index field of the qPacket.
  */
-class UsbPacket
+class USBPacket
 {
 public:
     struct quatData
@@ -21,6 +21,12 @@ public:
         float z;
     };
 
+/**
+ * \brief a quaternion and its corresponding index in the real-world application
+ * \details this datatype is intended for storage in the usbPacket_ such
+ *          that a specific orientation sensor's data is not limited to
+ *          being placed at a specific index.
+ */
     struct quatPacket
     {
         uint8_t index; // which BNO055 in the chain we're talking to.
@@ -28,9 +34,9 @@ public:
     };
 
 
-    UsbPacket();
+    USBPacket();
 
-    ~UsbPacket();
+    ~USBPacket();
 
 /**
  * \brief get the quaternion data living at the packet index.
@@ -49,7 +55,7 @@ public:
 
     static const size_t PACKET_SIZE_BYTES = 64;
     // Integer division is an implicit floor function.
-    size_t QUATERNIONS_PER_PACKET = PACKET_SIZE_BYTES/sizeof(quatPacket);
+    static const size_t QUATERNIONS_PER_PACKET = PACKET_SIZE_BYTES/sizeof(quatPacket);
 
     uint8_t packet_[PACKET_SIZE_BYTES];
 };
