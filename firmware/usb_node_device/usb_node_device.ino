@@ -3,7 +3,6 @@
  * \author Joshua Vasquez
  */
 
-#include "pinouts.h"
 #include <bno055.h>
 #include <i2c_wrapper.h>
 
