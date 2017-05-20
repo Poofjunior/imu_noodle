@@ -7,9 +7,9 @@
 #include <i2c_wrapper.h>
 #include <usb_packet.h>
 
-const uint8_t NUM_BNOS = 4;
+const uint8_t NUM_BNOS = 5;
 BNO055 bno_array[NUM_BNOS];
-uint8_t addresses[NUM_BNOS] = {0x2F, 0x2C, 0x2E, /*0x2D*/ BNO055::ALTERNATE_ADDRESS};
+uint8_t addresses[NUM_BNOS] = {0x2F, 0x2C, 0x2E, 0x2D, BNO055::ALTERNATE_ADDRESS};
 
 USBPacket usbPacket;
 
@@ -49,5 +49,5 @@ void loop(void)
         }
     }
     RawHID.send(usbPacket.packet_, 0);
-    delay(33);
+    delay(15);
 }

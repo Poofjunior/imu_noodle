@@ -82,10 +82,6 @@ void NodeUsbDriver::updateNodes()
         orientations_[qPacket.index].y_ = qPacket.qData.y;
         orientations_[qPacket.index].z_ = qPacket.qData.z;
         std::cout << int(qPacket.index) << std::endl;
-        std::cout << qPacket.qData.w << std::endl;
-        std::cout << qPacket.qData.x << std::endl;
-        std::cout << qPacket.qData.y << std::endl;
-        std::cout << qPacket.qData.z << std::endl;
     }
     std::cout << std::endl;
 }

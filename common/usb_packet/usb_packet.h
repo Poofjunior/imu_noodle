@@ -13,6 +13,10 @@
 class USBPacket
 {
 public:
+/*
+ * \brief container for storing raw quaternion data.
+ */
+#pragma pack(push, 1)
     struct quatData
     {
         float w;
@@ -20,18 +24,21 @@ public:
         float y;
         float z;
     };
+#pragma pack(pop)
 
 /**
- * \brief a quaternion and its corresponding index in the real-world application
- * \details this datatype is intended for storage in the usbPacket_ such
- *          that a specific orientation sensor's data is not limited to
- *          being placed at a specific index.
+ * \details container for storing both quaternion data and the index identifying
+ *          the corresponding sensor id.
+ * \details this container is necessary for the usbPacket_ such that the
+ *          usbPacket_ may be stuffed with data from arbitrary sensors.
  */
+#pragma pack(push, 1)
     struct quatPacket
     {
         uint8_t index; // which BNO055 in the chain we're talking to.
         quatData qData;// that BNO's data.
     };
+#pragma pack(pop)
 
 
     USBPacket();
@@ -40,14 +47,16 @@ public:
 
 /**
  * \brief get the quaternion data living at the packet index.
- * \param packetIndex index in the packet
+ * \param packetIndex which quatPacket slot in the packet_ that the
+ *                    quatPacket will be inserted
  * \param qPacket a reference by which to read in the qPacket in the usb packet
  */
     void getQuaternionPacket(size_t packetIndex, quatPacket& qPacket);
 
 /**
  * \brief set the quaternion data at a particular index in the packet.
- * \param packetIndex index in the packet
+ * \param packetIndex which quatPacket slot in the packet_ that the
+ *                    quatPacket will be inserted
  * \param qPacket the qPacket to stuff into the USB packet
  */
     void setQuaternionPacket(size_t packetIndex, quatPacket qPacket);
