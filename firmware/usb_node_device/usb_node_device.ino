@@ -49,5 +49,5 @@ void loop(void)
         }
     }
     RawHID.send(usbPacket.packet_, 0);
-    delay(15);
+    delay(6);
 }
