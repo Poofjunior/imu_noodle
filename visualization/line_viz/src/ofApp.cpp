@@ -25,7 +25,7 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    nodeUsbDriver_.updateNodes();
 }
 
 //--------------------------------------------------------------
@@ -36,7 +36,6 @@ void ofApp::draw(){
     cam_.begin();
     cam_.setVFlip(true);
 
-    nodeUsbDriver_.updateNodes();
 
     ofSetLineWidth(10);
 
