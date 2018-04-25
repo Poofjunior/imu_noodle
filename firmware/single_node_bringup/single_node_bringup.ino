@@ -8,6 +8,7 @@
 #include <i2c_wrapper.h>
 
 BNO055 bno055;
+BNO055::address_t address = (BNO055::address_t)0x22;
 
 void setup(){
     Serial.begin(9600);// baud rate irrelevant for usb serial.
@@ -20,10 +21,15 @@ void setup(){
     Serial.println(UPLOAD_DATE);
     i2cInit();
     delay(1000);
-    if(!bno055.init(BNO055::NDOF, BNO055::ALTERNATE_ADDRESS))
+    if(!bno055.init(BNO055::NDOF, address))
         Serial.println("BNO055 init succeeded.");
     else
-        Serial.println("BNO055 init failed.");
+    {
+        Serial.print("BNO055 at ");
+        Serial.print("0x");
+        Serial.print(address, HEX);
+        Serial.println(" init failed.");
+    }
 }
 
 void loop(void)

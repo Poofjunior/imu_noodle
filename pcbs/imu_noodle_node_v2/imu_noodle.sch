@@ -974,15 +974,21 @@ Wire Wire Line
 Wire Wire Line
 	6050 4550 6050 4600
 Text Notes 6400 3700 0    60   ~ 0
-COM3 --> Logic 0:\nNominal I2C Address set to 0x29
+COM3 --> Logic 0:\nNominal I2C Address set to 0x28
 Text Notes 9350 750  0    60   ~ 12
  R1  |  R8  |  R14  |  New Address
-Text Notes 9350 2050 0    60   ~ 0
-97K6\n76K8\n82K5\n63K4\n69K8\n52K3\n57K6\n43K2\n49K9\n29K4\n36K5\n16K5\n23K2
-Text Notes 9700 2050 0    60   ~ 0
-0\n21K5\n15K4\n33K2\n27K4\n45K3\n39K2\n52K3\n46K4\n66K5\n59K0\n78K7\n73K2
-Text Notes 10100 2050 0    60   ~ 0
-0\n0\n0\n0\n0\n0\n0\n10K0\n10K0\n10K0\n10K0\n10K0\n10K0
-Text Notes 10500 2050 0    60   ~ 0
-0x29\n0x2A\n0x2B\n0x2C\n0x2D\n0x2E\n0x2F\n0x30\n0x31\n0x32\n0x33\n0x34\n0x35
+Text Notes 9350 2300 0    60   ~ 0
+42K2\n36K5\n30K9\n25K5\n19K6\n14K0\n8K45\n2K80\n90K9\n82K5\n76K8\n69K8\n64K9\n59K0\n53K6\n47K5
+Text Notes 9700 2300 0    60   ~ 0
+47K5\n53K6\n59K0\n64K9\n69K8\n76K8\n82K5\n86K6\n0\n8K45\n14K0\n19K6\n25K5\n30K9\n36K5\n42K2
+Text Notes 10150 2300 0    60   ~ 0
+0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0\n0
+Text Notes 10500 2300 0    60   ~ 0
+0x20\n0x21\n0x22\n0x23\n0x24\n0x25\n0x26\n0x27\n0x28\n0x29\n0x2A\n0x2B\n0x2C\n0x2D\n0x2E\n0x2F
+Wire Notes Line
+	4450 4100 4450 3350
+Wire Notes Line
+	4450 3350 4850 3350
+Text Notes 4900 3400 0    60   ~ 0
+ERROR. These are swapped, but it's ok, provided that we swap the I2C master wires after the DI2C breakout
 $EndSCHEMATC

@@ -7,10 +7,11 @@
 #include <bno055.h>
 #include <i2c_wrapper.h>
 
-const uint8_t NUM_BNOS = 2;
+const uint8_t NUM_BNOS = 5;
 BNO055 bno_array[NUM_BNOS];
-//uint8_t addresses[NUM_BNOS] = {0x2F, 0x2D, 0x2E, 0x2C, BNO055::ALTERNATE_ADDRESS};
-uint8_t addresses[NUM_BNOS] = {0x2E, 0x2D};
+uint8_t addresses[NUM_BNOS] = {0x2F, 0x2D, 0x2E, 0x2C, BNO055::ALTERNATE_ADDRESS};
+//uint8_t addresses[NUM_BNOS] = {0x2E, 0x2D};
+//uint8_t addresses[NUM_BNOS] = {0x2A};
 
 void setup(){
     Serial.begin(9600);// baud rate irrelevant for usb serial.
@@ -25,18 +26,18 @@ void setup(){
     delay(1000);
     for (uint8_t index = 0; index < NUM_BNOS; ++index)
     {
-        if(!bno_array[index].init(BNO055::NDOF, (BNO055::address_t)addresses[index]))
-        {
-            Serial.print("BNO055 ");
-            Serial.print(index);
-            Serial.println(" init succeeded.");
-        }
-        else
-        {
-            Serial.print("BNO055 ");
-            Serial.print(index);
-            Serial.println(" init succeeded.");
-        }
+            if(!bno_array[index].init(BNO055::NDOF, (BNO055::address_t)addresses[index]))
+            {
+                Serial.print("BNO055 ");
+                Serial.print(index);
+                Serial.println(" init succeeded.");
+            }
+            else
+            {
+                Serial.print("BNO055 ");
+                Serial.print(index);
+                Serial.println(" init failed.");
+            }
     }
     delay(2000);
 }
